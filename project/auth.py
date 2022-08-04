@@ -11,14 +11,14 @@ def login():
     return render_template('login.html')
 @auth.route('/login', methods=['POST'])
 def login_post():
-    email = request.form.get('mail')
+    email = request.form.get('email')
     password = request.form.get('password')
     remember = True if request.form.get('remember') else False
 
     user = User.query.filter_by(email=email).first()
 
     if not user or not check_password_hash(user.password, password):
-        flash('Coba cek username dan password anda')
+        flash('Please check your login detail and try again')
         return redirect(url_for('auth.login'))
     
     login_user(user, remember=remember)
